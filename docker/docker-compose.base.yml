@@ -4,7 +4,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -22,6 +22,7 @@ services:
       - MAX_CLIENT_CONN=100
       - DEFAULT_POOL_SIZE=20
       - SERVER_RESET_QUERY=DISCARD ALL
+      - AUTH_TYPE=any
     depends_on:
       db:
         condition: service_healthy

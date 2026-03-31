@@ -35,6 +35,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+      pgbouncer: 
+        condition: service_started
 
   frontend:
     build:
@@ -62,3 +64,5 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+      pgbouncer:
+        condition: service_started

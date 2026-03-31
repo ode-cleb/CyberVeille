@@ -48,4 +48,4 @@ logs/
 
 #frontend
 frontend/.env.development
-frontend/.env.production
+frontend/.env.productionbackend/db.sqlite3

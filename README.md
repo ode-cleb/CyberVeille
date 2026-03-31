@@ -1,4 +1,4 @@
-# CyberVeille
+# CyberVeille [EN COURS]
 
 Plateforme de veille cybersécurité souveraine — agrégation automatique de CVE, alertes CERT-FR, et actualités sécurité, avec dashboard React et notifications push.
 

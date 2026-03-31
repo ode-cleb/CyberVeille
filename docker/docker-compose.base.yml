@@ -17,9 +17,11 @@ services:
       - DATABASES_DBNAME=${DB_NAME}
       - DATABASES_USER=${DB_USER}
       - DATABASES_PASSWORD=${DB_PASSWORD}
+      - DATABASES_POOL_SIZE=20
       - POOL_MODE=transaction
       - MAX_CLIENT_CONN=100
       - DEFAULT_POOL_SIZE=20
+      - SERVER_RESET_QUERY=DISCARD ALL
     depends_on:
       db:
         condition: service_healthy

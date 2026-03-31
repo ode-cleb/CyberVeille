@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgbouncer:
+    image: pgbouncer/pgbouncer:latest
+    environment:
+      - DATABASES_HOST=db
+      - DATABASES_PORT=5432
+      - DATABASES_DBNAME=${DB_NAME}
+      - DATABASES_USER=${DB_USER}
+      - DATABASES_PASSWORD=${DB_PASSWORD}
+      - POOL_MODE=transaction
+      - MAX_CLIENT_CONN=100
+      - DEFAULT_POOL_SIZE=20
+    depends_on:
+      db:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
